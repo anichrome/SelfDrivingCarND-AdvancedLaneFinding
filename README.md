@@ -195,4 +195,13 @@ The video pipeline utilizes the same techniques as in the image pipeline discuss
 
 A function `process_image` defined in code block 28 is executed for each frame which runs the pipeline, fits a polynomial, calculates radius of curvature, distance from center and visualizes them on the original image.
 
-The output video can be found here. 
+The output video can be found here : https://github.com/anichrome/SelfDrivingCarND-AdvancedLaneFinding/blob/master/project_video_output.mp4
+
+
+## Discussion
+
+Although the video pipeline discussed above performs relatively well in most of the cases, I observed some corner cases where the lane lines are extended out of the real line for a short term. But, the algorithm becomes robust again in the next frame sensing that it is out of the real line and brings it back.
+
+Another problem faced here is the fact that saturation channel predicting yellow line of the image depends largely on the thresholds chosen. In my case, the thickness of the yellow line extracted is sometimes large resulting in a larger polynomial fit area. This could sometimes lead to extended lane lines in X direction. To overcome this problem, I introduced a second level of filter which reduces the thickness of such a line but the time taken for this second level filter was too large. That is why it is omitted in this implementation.
+
+In this implementation, I only used the HLS color space for extraction of lines. But, it would be benificial to consider also other approaches like Sobel magnitude and threshold for example.
