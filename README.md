@@ -1,6 +1,6 @@
 # Advanced Lane Finding
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-Anil Kumar
+Some of the code in this implementation is reused from Udacity lecture and https://github.com/jeremy-shannon/CarND-Advanced-Lane-Lines
   
 
 The Project
