@@ -110,6 +110,7 @@ The figures below show multiple channels of an image and the combined thresholde
 |:---:|:---:|:---:|:---:|
 | ![alt text][im06] | ![alt text][im07] | ![alt text][im08] | ![alt text][im09] |
 
+The collection of figures depicting different channels and combined binary images for all test images can be found here : https://github.com/anichrome/SelfDrivingCarND-AdvancedLaneFinding/tree/master/output_images/color_channels
 
 ## Polynomial fitting
 
