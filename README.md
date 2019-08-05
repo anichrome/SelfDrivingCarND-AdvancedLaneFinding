@@ -48,7 +48,7 @@ The below figure shows a distorted and undistorted chessboard
 
 | Distorted Chessboard | Undistorted Chessboard |
 |:---:|:---:|
-| ![alt text][im01] | [alt text][im02] |
+| ![alt text][im01] | ![alt text][im02] |
 
 
 
