@@ -44,11 +44,12 @@ The images in the camera_cal folder serve as a basis here to compute calibration
 
 Then, the opencv function 'calibrateCamera' can be used to obtain the calibration and distortion co-efficients on any image with the stored arrays.Using the co-efficients calculated, a distorted image is then passed to another opencv function 'undistort' to get an undistorted image.
 
-The below figure shows a distorted chessboard
-![alt text][im01]
+The below figure shows a distorted and undistorted chessboard
 
-After applying the undistort function, the figure below shows the undistorted chessboard obtained
-![alt text][im02]
+| Distorted Chessboard | Undistorted Chessboard |
+|:---:|:---:|
+| ![alt text][im01] | [alt text][im02] |
+
 
 
 ## Image Pipeline for lane lines extraction
@@ -62,6 +63,9 @@ The goal of this pipeline is to create a warped binary thresholded image given a
 The computed camera and distortion co-efficients can now be used to correct the raw images. The same opencv function 'undistort' is used here too. Input here is the distorted images and output is the undistorted images.
 
 The figures below show distorted and undistorted images.
+
+|Distorted Image | Undistorted Image |
+|:---:|:---:|
 | ![alt text][im03] | ![alt text][im04] |
 
 ### Creating a warped perspective
@@ -69,6 +73,9 @@ The figures below show distorted and undistorted images.
 Once the image has been undistorted, it is used to get a better view of the lane in the image. Since the front view of the image gives a poor representation of the lane markings, a top-view is necessary in order to get a better view. The opencv functions, 'warpPerspective' and 'getPerspectiveTransform' are used to achieve this.
 
 The figure below shows an undistorted image and its warped perspective image
+
+|Undistorted Image | Warped Perspective Image |
+|:---:|:---:|
 | ![alt text][im04] | ![alt text][im05] |
 
 ### Evaluation of color channels
@@ -99,6 +106,8 @@ def getCombinedBinaryImage(lChannel, sChannel):
 
 The figures below show multiple channels of an image and the combined thresholded binary image.
 
+|Hue Channel | Lightness Channel | Saturation Channel | Combined Binary Threshold |
+|:---:|:---:|:---:|:---:|
 | ![alt text][im06] | ![alt text][im07] | ![alt text][im08] | ![alt text][im09] |
 
 
