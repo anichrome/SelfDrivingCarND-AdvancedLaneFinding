@@ -104,6 +104,7 @@ def getCombinedBinaryImage(lChannel, sChannel):
     return combined    
 ```   
 
+But, I also noticed that when the frame contains regions of 
 The figures below show multiple channels of an image and the combined thresholded binary image.
 
 |Hue Channel | Lightness Channel | Saturation Channel | Combined Binary Threshld |
