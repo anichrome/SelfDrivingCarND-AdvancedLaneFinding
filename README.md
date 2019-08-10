@@ -28,7 +28,7 @@ The goals / steps of this project are the following:
 [im05]: ./output_images/color_channels/warpedImage5.png "Hue Image"
 [im06]: ./output_images/color_channels/hChannelImage5.png "Hue Image"
 [im07]: ./output_images/color_channels/lChannelImage5.png "Lightness Image"
-[im08]: ./output_images/color_channels/sChannelImage5.png "Saturation Image"
+[im08]: ./output_images/color_channels/sChannelImageHsv5.png "Saturation Image"
 [im09]: ./output_images/color_channels/combinedBinaryImage5.png "Combined Binary Thresholded Image"
 
 [im10]: ./output_images/sliding_window.png "Sliding Window Image"
@@ -104,7 +104,23 @@ def getCombinedBinaryImage(lChannel, sChannel):
     return combined    
 ```   
 
-But, I also noticed that when the frame contains regions of 
+But, I also noticed that when the frame contains regions of difficult light conditions, the saturation channel fails to perform well and the yellow lane lines are difficult to extract. For this reason, I implemented a color mask which extract yellow color from the image. The color mask I used is as shown below
+
+```
+    lowerYellow = np.array([22, 56, 20])
+    upperYellow = np.array([220, 255, 255])
+    maskYellow = cv2.inRange(hsvImage, lowerYellow, upperYellow)
+    mask_img_yellow = cv2.bitwise_and(hsvImage, hsvImage, mask=maskYellow)
+```
+Since the lightness channel from the HLS image color channel performs quite well in extracting the white lines, I combined the yellow mask and lightness channel from HLS image to get a combined thresholded binary image.
+
+```
+    mask_img_rgb_yellow = cv2.cvtColor(mask_img_yellow, cv2.COLOR_HSV2RGB)
+    hChannelHsvYellow, lChannelHsvYellow, sChannelHsvYellow = getHlsColorChannels(mask_img_rgb_yellow)
+    binaryImageSHsvYellow = getBinaryThresholdS(sChannelHsvYellow)    
+    combinedBinaryImageHsv = getCombinedBinaryImage(binaryImageLHls, binaryImageSHsvYellow)
+```   
+
 The figures below show multiple channels of an image and the combined thresholded binary image.
 
 |Hue Channel | Lightness Channel | Saturation Channel | Combined Binary Threshld |
@@ -206,4 +222,4 @@ Although the video pipeline discussed above performs relatively well in most of 
 
 Another problem faced here is the fact that saturation channel predicting yellow line of the image depends largely on the thresholds chosen. In my case, the thickness of the yellow line extracted is sometimes large resulting in a larger polynomial fit area. This could sometimes lead to extended lane lines in X direction. To overcome this problem, I introduced a second level of filter which reduces the thickness of such a line but the time taken for this second level filter was too large. That is why it is omitted in this implementation.
 
-In this implementation, I only used the HLS color space for extraction of lines. But, it would be benificial to consider also other approaches like Sobel magnitude and threshold for example.
+In this implementation, I only used the HLS color space and color mask for extraction of lines. But, it would be benificial to consider also other approaches like Sobel magnitude and threshold for example.
